@@ -16,16 +16,14 @@ const config = {
     server: 'jorgefatec.database.windows.net',
     database: 'jorgefatec',
     options: {
-        encrypt: true // Dependendo da configuração do seu servidor SQL Server
+        encrypt: true
     }
 };
 
 app.use(express.json());
 
-// Servir arquivos estáticos (como index.html)
 app.use(express.static(path.join(__dirname)));
 
-// Rota para atualizar a vida do herói e do vilão
 app.post('/atualizarVida', async (req, res) => {
     const { vidaHeroi, vidaVilao } = req.body;
 
@@ -82,9 +80,8 @@ app.get('/register', (req, res) => {
     res.sendFile(path.join(__dirname, 'register.html'));
 });
 
-// Rota para verificar se um usuário está cadastrado
 app.get('/checkUser', async (req, res) => {
-    const { email } = req.query; // Pega o email dos parâmetros de consulta
+    const { email } = req.query;
     try {
         await sql.connect(config);
         const request = new sql.Request();
