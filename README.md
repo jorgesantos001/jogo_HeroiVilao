@@ -9,7 +9,9 @@ As ações do vilão são determinadas com base em probabilidades.
 
 # Tecnologias Utilizadas
 Frontend: Vue.js
+
 Backend: Node.js com Express
+
 Banco de Dados: SQL Server
 
 # Autor
