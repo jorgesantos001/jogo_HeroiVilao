@@ -1,0 +1,110 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+}
+
+#app {
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+}
+
+.personagem {
+    background-color: #a6c1e5;
+    border: 2px solid #1a355e;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    padding: 10px;
+    width: 200px;
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+.acoes {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+}
+
+button {
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+    background-color: #73295c;
+    color: whitesmoke;
+    cursor: pointer;
+    transition: background-color 0.5s, transform 0.2s;
+}
+
+button:hover {
+    background-color: #3d0525;
+    transform: translateY(-3px);
+}
+
+button:active {
+    transform: translateY(0px);
+}
+
+.barra-vida {
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    border-radius: 5px;
+    margin-bottom: 16px;
+}
+
+.vida-verde {
+    background-color: #2c952f;
+}
+
+.vida-amarela {
+    background-color: #ffc107;
+}
+
+.vida-vermelha {
+    background-color: #dc3545;
+}
+
+.sprite {
+    height: 140px;
+    background-color: #ddd;
+}
+
+img {
+    height: 100px;
+    margin-top: 20px;
+}
+
+.personagens {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.acesso {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.acesso a {
+    text-decoration: none;
+    color: #73295c;
+    font-weight: bold;
+    margin: 0 10px;
+    padding: 8px 16px;
+    border: 2px solid #73295c;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.acesso a:hover {
+    background-color: #73295c;
+    color: white;
+}
+

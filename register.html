@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro - Jogo Herói e Vilão</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container" id="app">
+        <h1>Cadastro</h1>
+        <form @submit.prevent="submitForm">
+            <label for="nome">Nome:</label>
+            <input type="text" v-model="nome" id="nome" name="nome" required>
+            <label for="email">Email:</label>
+            <input type="email" v-model="email" id="email" name="email" required>
+            <label for="senha">Senha:</label>
+            <input type="password" v-model="senha" id="senha" name="senha" required>
+            <button type="submit">Cadastrar</button>
+        </form>
+        <p>Já tem uma conta? <a href="/login.html">Faça login</a></p>
+        <p><a href="/index.html">Início</a></p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                nome: '',
+                email: '',
+                senha: ''
+            },
+            methods: {
+                async submitForm() {
+                    try {
+                        const response = await fetch('/register', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ nome: this.nome, email: this.email, senha: this.senha })
+                        });
+                        if (response.ok) {
+                            alert('Registro bem-sucedido. Agora você pode fazer login.');
+                            window.location.href = '/login.html';
+                        } else {
+                            const result = await response.json();
+                            alert('Falha no registro: ' + result.message);
+                        }
+                    } catch (error) {
+                        console.error('Erro durante o registro:', error);
+                        alert('Erro durante o registro. Tente novamente.');
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

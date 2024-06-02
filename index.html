@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prova - Herói e Vilão</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+<div id="app" class="container">
+    <div class="personagens">
+        <div class="personagem">
+            <div class="mensagem-defesa">{{ mensagemDefesaHeroi }}</div>
+            <div v-if="heroi.vida > 0" class="barra-vida" :class="{'vida-verde': heroi.vida > 60, 'vida-amarela': heroi.vida <= 60 && heroi.vida > 30, 'vida-vermelha': heroi.vida <= 30 }" :style="{ width: heroi.vida + '%' }">{{ heroi.vida }}</div>
+            <div v-else class="mensagem-derrota">Herói derrotado!</div>
+            <div class="sprite">
+                <img src="img/heroi.png">
+            </div>   
+            <h1>Herói</h1>
+            <div class="acoes">
+                <button @click="atacar(true)">Atacar</button>
+                <button @click="defender(true)">Defender</button>
+                <button @click="usarPocao(true)">Usar Poção</button>
+                <button @click="correr(true)">Correr</button>
+            </div>
+            <div class="mensagem-correr">{{ mensagemCorreu }}</div>
+        </div>
+        <div class="personagem">
+            <div class="mensagem-defesa">{{ mensagemDefesaVilao }}</div>
+            <div v-if="vilao.vida > 0" class="barra-vida" :class="{'vida-verde': vilao.vida > 60, 'vida-amarela': vilao.vida <= 60 && vilao.vida > 30, 'vida-vermelha': vilao.vida <= 30 }" :style="{ width: vilao.vida + '%' }">{{ vilao.vida }}</div>
+            <div v-else class="mensagem-derrota">Vilão derrotado!</div>
+            <div class="sprite">
+                <img src="img/vilao.png">
+            </div>
+            <h1>Vilão</h1>
+        </div>    
+    </div>
+
+    <!-- Adicione os links para registro e login -->
+    <div class="acesso">
+        <a href="login.html">Login</a> | <a href="register.html">Cadastrar</a> | <a href="dashboard.html" target="_blank" class="dashboard-btn">Dashboard</a>
+    </div>    
+</div>
+<script src="index.js"></script>
+</body>
+</html>
