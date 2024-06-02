@@ -15,11 +15,21 @@ Frontend: Vue.js
 
 Backend: Node.js com Express
 
-Banco de Dados: SQL Server
+Banco de Dados: Azure
 
 # Acessar o jogo:
 
 https://jogoheroievilao.netlify.app/
+
+Telas de demonstração
+
+<img src="img/imginicial.png">
+
+<img src="img/imgdashboard.png">
+
+<img src="img/imgcadastro.png">
+
+<img src="img/imglogin.png">
 
 # Autor
 Jorge Luiz Patrocínio dos Santos
