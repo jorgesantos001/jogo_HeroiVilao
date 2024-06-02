@@ -3,8 +3,11 @@ Este é um simples jogo de batalha entre um herói e um vilão, onde eles podem 
 
 # Funcionalidades
 Os jogadores podem ver a vida atual do herói e do vilão.
+
 Os jogadores podem ver as ações disponíveis para o herói e para o vilão.
+
 Os jogadores podem realizar ações como atacar, defender, usar poção e correr.
+
 As ações do vilão são determinadas com base em probabilidades.
 
 # Tecnologias Utilizadas
@@ -13,6 +16,10 @@ Frontend: Vue.js
 Backend: Node.js com Express
 
 Banco de Dados: SQL Server
+
+# Acessar o jogo:
+
+https://jogoheroievilao.netlify.app/
 
 # Autor
 Jorge Luiz Patrocínio dos Santos
