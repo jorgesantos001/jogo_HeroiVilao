@@ -13,7 +13,7 @@ createApp({
         }
     },
     methods: {
-        atacar(isHeroi) {
+        async atacar(isHeroi) {
             this.mensagemDefesaHeroi = '';
             this.mensagemDefesaVilao = '';
             if (isHeroi) {
@@ -22,22 +22,24 @@ createApp({
                 if (this.vilao.vida === 0) {
                     console.log("Vilão derrotado!");
                     this.mensagemDerrota = 'Vilão derrotado!';
-                    this.atualizarVidaNoBancoDeDados(this.heroi.vida, this.vilao.vida);
                 } else {
+                    // Vilão ataca automaticamente se ainda estiver vivo
                     this.acaoVilao();
                 }
             } else {
                 console.log("Vilão atacou");
                 this.heroi.vida = Math.max(0, this.heroi.vida - 10);
+                console.log(`Nova vida do herói: ${this.heroi.vida}`);
                 if (this.heroi.vida === 0) {
                     console.log("Herói derrotado!");
                     this.mensagemDerrota = 'Herói derrotado!';
                 }
             }
 
+            await this.atualizarVidaNoBancoDeDados();
             this.registrarAcao(isHeroi, 'atacar');
         },
-        defender(isHeroi) {
+        async defender(isHeroi) {
             if (isHeroi) {
                 console.log("Herói defendeu");
                 this.mensagemDefesaHeroi = 'Herói defendeu';
@@ -45,24 +47,21 @@ createApp({
                 console.log("Vilão defendeu");
                 this.mensagemDefesaVilao = 'Vilão defendeu';
             }
-            this.mensagemVisivel = true;
-            setTimeout(() => {
-                this.mensagemVisivel = false;
-            },1000);
-
             this.registrarAcao(isHeroi, 'defender');
+            setTimeout(() => {
+                this.mensagemDefesaHeroi = '';
+                this.mensagemDefesaVilao = '';
+            }, 2000);
         },
-        usarPocao(isHeroi) {
+        async usarPocao(isHeroi) {
             if (isHeroi) {
                 console.log("Herói usou uma poção");
                 this.heroi.vida = Math.min(100, this.heroi.vida + 10);
-                this.atualizarVidaNoBancoDeDados(this.heroi.vida, this.vilao.vida);
             } else {
                 console.log("Vilão usou uma poção");
                 this.vilao.vida = Math.min(100, this.vilao.vida + 10);
-                this.atualizarVidaNoBancoDeDados(this.vilao.vida, this.heroi.vida);
             }
-
+            await this.atualizarVidaNoBancoDeDados();
             this.registrarAcao(isHeroi, 'usarPocao');
         },
         correr(isHeroi) {
@@ -75,12 +74,30 @@ createApp({
             } else {
                 console.log("Vilão tentou correr");
             }
-
             this.registrarAcao(isHeroi, 'correr');
         },
+        async atualizarVidaNoBancoDeDados() {
+            console.log(`Atualizando vida no banco de dados: vidaHeroi = ${this.heroi.vida}, vidaVilao = ${this.vilao.vida}`);
+            try {
+                const response = await fetch(`${API_URL}/atualizarVida`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ vidaHeroi: this.heroi.vida, vidaVilao: this.vilao.vida })
+                });
+                if (!response.ok) {
+                    throw new Error('Erro ao atualizar vida no banco de dados.');
+                }
+                console.log('Vidas atualizadas com sucesso.');
+            } catch (error) {
+                console.error('Erro ao atualizar vida no banco de dados:', error);
+            }
+        },
+        
         async registrarAcao(isHeroi, acao) {
             try {
-                const response = await fetch('http://localhost:3000/registrarAcao', {
+                const response = await fetch(`${API_URL}/registrarAcao`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -94,7 +111,7 @@ createApp({
             } catch (error) {
                 console.error('Erro ao registrar ação no banco de dados:', error);
             }
-        },        
+        },
         acaoVilao() {
             const acoes = ['atacar', 'defender', 'usarPocao', 'correr'];
             let probabilidades = [0.4, 0.1, 0.3, 0.2]; 
@@ -118,5 +135,3 @@ createApp({
         }        
     }
 }).mount("#app")
-
-

@@ -14,7 +14,7 @@
                 <div>Vida: {{ heroiVida }}</div>
                 <div>Ações:</div>
                 <ul>
-                    <li v-for="acao in acoesHeroi">{{ acao }}</li>
+                    <li v-for="acao in acoesHeroi" :key="acao">{{ acao }}</li>
                 </ul>
             </div>
             <div class="personagem">
@@ -22,12 +22,51 @@
                 <div>Vida: {{ vilaoVida }}</div>
                 <div>Ações:</div>
                 <ul>
-                    <li v-for="acao in acoesVilao">{{ acao }}</li>
+                    <li v-for="acao in acoesVilao" :key="acao">{{ acao }}</li>
                 </ul>
             </div>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
-    <script src="dashboard.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                heroiVida: '',
+                vilaoVida: '',
+                acoesHeroi: [],
+                acoesVilao: []
+            },
+            mounted() {
+                this.fetchCharacterData();
+                setInterval(this.fetchCharacterData, 5000); // Atualizar a cada 5 segundos
+            },
+            methods: {
+                async fetchCharacterData() {
+                    try {
+                        const response = await fetch('/characters');
+                        const data = await response.json();
+                        this.heroiVida = data.heroi.Vida;
+                        this.vilaoVida = data.vilao.Vida;
+                        this.fetchActions();
+                    } catch (error) {
+                        console.error('Erro ao buscar dados dos personagens:', error);
+                    }
+                },
+                async fetchActions() {
+                    try {
+                        const responseHeroi = await fetch('/actions/heroi');
+                        const responseVilao = await fetch('/actions/vilao');
+                        const dataHeroi = await responseHeroi.json();
+                        const dataVilao = await responseVilao.json();
+                        this.acoesHeroi = dataHeroi.acoes;
+                        this.acoesVilao = dataVilao.acoes;
+                    } catch (error) {
+                        console.error('Erro ao buscar ações dos personagens:', error);
+                    }
+                }
+            }
+        });
+    </script>
 </body>
 </html>
