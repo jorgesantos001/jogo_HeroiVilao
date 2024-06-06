@@ -49,3 +49,6 @@ https://jogoheroievilao.netlify.app/
 
 # Autor
 Jorge Luiz Patrocínio dos Santos
+
+# Licença
+Este projeto está licenciado sob a Licença MIT.
