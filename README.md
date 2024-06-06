@@ -19,7 +19,7 @@ Banco de Dados: Azure
 
 # Instalação e Uso
 
-Clone este repositório: git clone <URL_do_repositório>
+Clone este repositório: git clone (https://github.com/jorgesantos001/jogo_HeroiVilao.git)
 
 Instale as dependências do servidor: npm install
 
