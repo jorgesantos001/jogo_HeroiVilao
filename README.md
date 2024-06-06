@@ -17,7 +17,23 @@ Backend: Node.js com Express
 
 Banco de Dados: Azure
 
-# Acessar o jogo:
+# Instalação e Uso
+
+Clone este repositório: git clone <URL_do_repositório>
+
+Instale as dependências do servidor: npm install
+
+Navegue para o diretório do servidor: cd server
+
+Instale as dependências do cliente: npm install
+
+Navegue de volta para o diretório raiz: cd ..
+
+Execute o servidor: npm start
+
+Abra o navegador e acesse http://localhost:3000 para jogar o jogo.
+
+# Acessar o jogo hospedado (sem o banco de dados):
 
 https://jogoheroievilao.netlify.app/
 
